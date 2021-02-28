@@ -141,10 +141,6 @@ class HabitViewController: UIViewController {
         
     }
     
-    func cleaner() {
-        
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
        

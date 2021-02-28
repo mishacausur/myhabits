@@ -59,8 +59,6 @@ class HabitDetailsViewController: UIViewController {
     let habitVC = HabitViewController()
   
     @objc func openHabit() {
-//        habitVC.viewDidLoad()
-//        habitVC.navigationController?.isNavigationBarHidden = false
         habitVC.navigationItem.title = "Править"
         habitVC.view.backgroundColor = .white
         habitVC.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(resaveHabit))
@@ -98,14 +96,14 @@ class HabitDetailsViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-  @objc func deleteHabit(){
+    @objc func deleteHabit(){
         for i in storage.habits {
             if i == habit {
                 storage.habits = storage.habits.filter(){$0 != habit}
             }
         }
-    dismiss(animated: true, completion: nil)
-    navigationController?.popToRootViewController(animated: true)
+        dismiss(animated: true, completion: nil)
+        navigationController?.popToRootViewController(animated: true)
     }
 }
 

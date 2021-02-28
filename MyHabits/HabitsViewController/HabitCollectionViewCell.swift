@@ -9,12 +9,23 @@ import UIKit
 
 class HabitCollectionViewCell: UICollectionViewCell {
     
+    var delegate: Updated?
+    
     var habit: Habit? {
         didSet {
             nameHabit.text = habit?.name
             circleView.backgroundColor = habit?.color
+            bottomText.text = "Подряд: " + String(habit?.trackDates.count ?? 0)
+            timeLabel.text = "Каждый день в " + dateFormatter.string(from: habit!.date)
         }
     }
+    
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        return formatter
+    }()
     
     let nameHabit: UILabel = {
         let label = UILabel()
@@ -61,13 +72,12 @@ class HabitCollectionViewCell: UICollectionViewCell {
     
     let bottomText: UILabel = {
         let label = UILabel()
-        label.text = "Подряд: "
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         label.textColor = UIColor.gray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+        
     override init(frame: CGRect){
         super.init(frame: frame)
         setupHabitCell()
@@ -90,6 +100,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
             self.whiteView.alpha = 0
         }
         animatorCheckButton.startAnimation()
+        self.delegate?.update()
         
     }
     
@@ -101,7 +112,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
         circleView.addSubview(checkButton)
         circleView.addSubview(whiteView)
         contentView.backgroundColor = .white
-        
+    
         let width = CGFloat(contentView.frame.width/3 * 2)
         let constraints = [
             

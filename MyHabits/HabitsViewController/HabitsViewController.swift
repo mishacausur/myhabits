@@ -14,6 +14,10 @@ protocol Updated: class {
 final class HabitsViewController: UIViewController {
     
     @IBAction func addButton(_ sender: Any) {
+        let habitViewController = HabitViewController()
+        habitViewController.delegate = self
+        present(habitViewController, animated: true, completion: nil)
+
     }
     private lazy var habitsCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -36,7 +40,6 @@ final class HabitsViewController: UIViewController {
     
    
     override func viewWillAppear(_ animated: Bool) {
-        print("4")
         habitsCollection.reloadData()
     }
    
@@ -85,6 +88,7 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
             cell.nameHabit.textColor = cell.circleView.backgroundColor
             if storage.habits[indexPath.item].isAlreadyTakenToday == false {
                 cell.whiteView.alpha = 1 } else { cell.whiteView.alpha = 0 }
+            cell.delegate = self
             return cell
         }
     }
@@ -131,6 +135,4 @@ extension HabitsViewController: Updated {
     func update() {
         habitsCollection.reloadData()
     }
-    
-    
 }

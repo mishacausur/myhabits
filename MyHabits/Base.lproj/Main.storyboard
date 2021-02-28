@@ -23,7 +23,6 @@
                             <color key="tintColor" red="0.63137254899999995" green="0.086274509799999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="addButton:" destination="YYE-b1-L05" id="C48-O2-F9T"/>
-                                <segue destination="Ch3-Iy-CoY" kind="presentation" id="VXb-1h-hJ9"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -37,7 +36,7 @@
             <objects>
                 <viewController id="Ch3-Iy-CoY" customClass="HabitViewController" customModule="MyHabits" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XLR-eR-84Y">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="p8w-A3-LMh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

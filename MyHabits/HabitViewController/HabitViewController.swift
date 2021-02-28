@@ -24,7 +24,7 @@ class HabitViewController: UIViewController {
     
     let wrapperView = UIView()
     
-    var updatedDelegate: Updated?
+    var delegate: Updated?
     
     let nameLabel: UILabel = {
         let label = UILabel()
@@ -123,6 +123,7 @@ class HabitViewController: UIViewController {
         let colorHabit = colorViewCircle.backgroundColor!
         let newHabit = Habit(name: nameText, date: dateHabit, color: colorHabit)
         storage.habits.append(newHabit)
+        self.delegate?.update()
         dismiss(animated: true, completion: nil)
     }
     
@@ -132,6 +133,7 @@ class HabitViewController: UIViewController {
         super.viewDidLoad()
         title = "Создать"
         setButtons()
+        view.backgroundColor = .white
         view.addSubview(wrapperView)
         setView()
         let tapColorCircle = UITapGestureRecognizer(target: self, action: #selector(colorCircleTapped))
@@ -187,7 +189,7 @@ class HabitViewController: UIViewController {
     
     let newHabit = Habit(name: nameTextField.text!, date: timePicker.date, color: colorViewCircle.backgroundColor!)
     storage.habits.append(newHabit)
-    updatedDelegate?.update()
+    self.delegate?.update()
     dismiss(animated: true, completion: nil)
    }
     

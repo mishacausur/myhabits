@@ -35,6 +35,7 @@ final class HabitsViewController: UIViewController {
         setupScreen()
         title = "Сегодня"
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.backgroundColor = .white
     }
     
     

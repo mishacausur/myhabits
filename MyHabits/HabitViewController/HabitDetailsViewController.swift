@@ -115,9 +115,7 @@ extension HabitDetailsViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = habitTableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath)
-        let dateLabel = storage.dates
-        let date = dateLabel[indexPath.section]
-        print(dateLabel)
+        let date = habit.trackDates[indexPath.row]
         let label = dateFormatter.string(from: date)
         cell.textLabel!.text = label
         cell.tintColor = UIColor.init(named: "purple")

@@ -22,6 +22,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
     
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
+        formatter.locale = .init(identifier: "ru_RU")
         formatter.dateStyle = .none
         formatter.timeStyle = .short
         return formatter

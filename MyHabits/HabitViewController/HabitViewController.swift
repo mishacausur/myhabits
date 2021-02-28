@@ -97,8 +97,9 @@ class HabitViewController: UIViewController {
     
     @objc let deleteButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Удалить", for: .normal)
+        button.setTitle("Удалить привычку", for: .normal)
         button.setTitleColor(.red, for: .normal)
+        button.alpha = 0
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -241,7 +242,7 @@ class HabitViewController: UIViewController {
             timeChanger.leadingAnchor.constraint(equalTo: timeTextLabel.trailingAnchor, constant: 3),
         
             deleteButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            deleteButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30)]
+            deleteButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)]
         
         
         NSLayoutConstraint.activate(constraints)

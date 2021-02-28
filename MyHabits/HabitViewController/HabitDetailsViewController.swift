@@ -78,9 +78,10 @@ class HabitDetailsViewController: UIViewController {
         let saveButton = UIBarButtonItem(title: "Сохранить", style: .done, target: self, action: #selector(resaveHabit))
         navigationItems.rightBarButtonItem = saveButton
         let cancelButton = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(closeButton))
-        habitVC.navigationItem.leftBarButtonItem = cancelButton
+        navigationItems.leftBarButtonItem = cancelButton
         habitVC.navigationBar.setItems([navigationItems], animated: true)
         let removerRecognizer = UITapGestureRecognizer(target: self, action: #selector(deleteHabit))
+        habitVC.deleteButton.alpha = 1
         habitVC.deleteButton.addGestureRecognizer(removerRecognizer)
         self.navigationController?.present(habitVC, animated: true, completion: nil)
     }
@@ -96,10 +97,6 @@ class HabitDetailsViewController: UIViewController {
     @objc func closeButton(){
         dismiss(animated: true, completion: nil)
     }
-    
-//    @objc func deleteH(habit: Habit){
-//        deleteHabit(habit: habit)
-//    }
     
   @objc func deleteHabit(){
         for i in storage.habits {

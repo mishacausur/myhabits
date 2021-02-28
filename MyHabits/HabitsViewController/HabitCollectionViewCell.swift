@@ -102,7 +102,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
         circleView.addSubview(whiteView)
         contentView.backgroundColor = .white
         
-        let width = CGFloat(contentView.frame.width/2)
+        let width = CGFloat(contentView.frame.width/3 * 2)
         let constraints = [
             
             

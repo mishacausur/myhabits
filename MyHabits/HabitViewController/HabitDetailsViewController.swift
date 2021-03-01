@@ -107,7 +107,6 @@ class HabitDetailsViewController: UIViewController {
         alertController.addAction(deleteAction)
         habitVC.present(alertController, animated: true, completion: nil)
     }
-    
     func deleteHabit(){
         for i in storage.habits {
             if i == habit {
@@ -118,7 +117,6 @@ class HabitDetailsViewController: UIViewController {
         navigationController?.popToRootViewController(animated: true)
     }
 }
-
 extension HabitDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let count = habit.trackDates.count

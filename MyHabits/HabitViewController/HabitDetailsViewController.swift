@@ -57,6 +57,7 @@ class HabitDetailsViewController: UIViewController {
     }
     
     let habitVC = HabitViewController()
+    
   
     @objc func openHabit() {
         habitVC.navigationItem.title = "Править"
@@ -71,14 +72,13 @@ class HabitDetailsViewController: UIViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "H:mm"
         habitVC.timeChanger.text = formatter.string(from: i)
-        
         let navigationItems = UINavigationItem(title: "Править")
         let saveButton = UIBarButtonItem(title: "Сохранить", style: .done, target: self, action: #selector(resaveHabit))
         navigationItems.rightBarButtonItem = saveButton
         let cancelButton = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(closeButton))
         navigationItems.leftBarButtonItem = cancelButton
         habitVC.navigationBar.setItems([navigationItems], animated: true)
-        let removerRecognizer = UITapGestureRecognizer(target: self, action: #selector(deleteHabit))
+        let removerRecognizer = UITapGestureRecognizer(target: self, action: #selector(deleteAlert))
         habitVC.deleteButton.alpha = 1
         habitVC.deleteButton.addGestureRecognizer(removerRecognizer)
         self.navigationController?.present(habitVC, animated: true, completion: nil)
@@ -96,7 +96,19 @@ class HabitDetailsViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    @objc func deleteHabit(){
+    @objc func deleteAlert(){
+        let alertController = UIAlertController(title: "Удалить привычку", message: "Вы хотите удалить привычку \(habit.name) ?", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: {_ in
+            print("Отмена")
+        })
+        let deleteAction = UIAlertAction(title: "Удалить", style: .destructive, handler: {_ in self.deleteHabit()
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(deleteAction)
+        habitVC.present(alertController, animated: true, completion: nil)
+    }
+    
+    func deleteHabit(){
         for i in storage.habits {
             if i == habit {
                 storage.habits = storage.habits.filter(){$0 != habit}

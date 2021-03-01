@@ -95,7 +95,7 @@ class HabitViewController: UIViewController {
         return picker
     }()
     
-    @objc let deleteButton: UIButton = {
+    let deleteButton: UIButton = {
         let button = UIButton()
         button.setTitle("Удалить привычку", for: .normal)
         button.setTitleColor(.red, for: .normal)

@@ -80,7 +80,6 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
             progressCell.progressIndicator.setProgress(storage.todayProgress, animated: true)
             progressCell.percentLabel.text = String(Int(storage.todayProgress*100)) + "%"
             return progressCell
-            
         } else {
             let cell: HabitCollectionViewCell = habitsCollection.dequeueReusableCell(withReuseIdentifier: "CellID", for: indexPath) as! HabitCollectionViewCell
             cell.layer.cornerRadius = 8
@@ -121,7 +120,6 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
         guard let habitCell = cell as? HabitCollectionViewCell else { return }
         habitCell.habit = storage.habits[indexPath.item]
         habitCell.nameHabit.textColor = habitCell.circleView.backgroundColor
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

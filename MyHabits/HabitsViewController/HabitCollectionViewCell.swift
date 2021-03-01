@@ -102,7 +102,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
         }
         animatorCheckButton.startAnimation()
         self.delegate?.update()
-        
     }
     
     private func setupHabitCell(){
@@ -116,8 +115,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
     
         let width = CGFloat(contentView.frame.width/3 * 2)
         let constraints = [
-            
-            
             nameHabit.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             nameHabit.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             nameHabit.widthAnchor.constraint(equalToConstant: width),
@@ -140,11 +137,8 @@ class HabitCollectionViewCell: UICollectionViewCell {
             whiteView.centerYAnchor.constraint(equalTo: circleView.centerYAnchor),
             
             bottomText.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
-            bottomText.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20)
-            
-        ]
+            bottomText.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20)]
         
         NSLayoutConstraint.activate(constraints)
     }
-    
 }

@@ -127,8 +127,6 @@ class HabitViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Создать"
@@ -141,12 +139,10 @@ class HabitViewController: UIViewController {
         timeChanger.inputView = timePicker
         timePicker.preferredDatePickerStyle = .wheels
         timePicker.datePickerMode = .time
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-       
     }
     
     func deleteHabit(habit: Habit){
@@ -193,11 +189,6 @@ class HabitViewController: UIViewController {
     dismiss(animated: true, completion: nil)
    }
     
-  
-   
-    
-    
-    
     private func setView(){
         wrapperView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(navigationBar)
@@ -214,7 +205,6 @@ class HabitViewController: UIViewController {
         toolBar.sizeToFit()
         toolBar.setItems([flexSpace, doneButton], animated: true)
         timeChanger.inputAccessoryView = toolBar
-        
         
         let constraints = [
             wrapperView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
@@ -245,8 +235,6 @@ class HabitViewController: UIViewController {
         
             deleteButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             deleteButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)]
-        
-        
         NSLayoutConstraint.activate(constraints)
     }
 }

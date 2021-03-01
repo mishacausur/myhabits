@@ -30,7 +30,6 @@ class HabitDetailsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -40,6 +39,7 @@ class HabitDetailsViewController: UIViewController {
         self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor(named: "purple")!], for: .normal)
         view.backgroundColor = UIColor(named: "bitGray")
     }
+    
     private func setupView(){
         view.addSubview(habitTableView)
         habitTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -58,7 +58,6 @@ class HabitDetailsViewController: UIViewController {
     
     let habitVC = HabitViewController()
     
-  
     @objc func openHabit() {
         habitVC.navigationItem.title = "Править"
         habitVC.view.backgroundColor = .white
@@ -83,6 +82,7 @@ class HabitDetailsViewController: UIViewController {
         habitVC.deleteButton.addGestureRecognizer(removerRecognizer)
         self.navigationController?.present(habitVC, animated: true, completion: nil)
     }
+    
     @objc func resaveHabit(){
         habit.name = habitVC.nameTextField.text!
         habit.color = habitVC.colorViewCircle.backgroundColor!
@@ -107,6 +107,7 @@ class HabitDetailsViewController: UIViewController {
         alertController.addAction(deleteAction)
         habitVC.present(alertController, animated: true, completion: nil)
     }
+    
     func deleteHabit(){
         for i in storage.habits {
             if i == habit {
@@ -117,6 +118,7 @@ class HabitDetailsViewController: UIViewController {
         navigationController?.popToRootViewController(animated: true)
     }
 }
+
 extension HabitDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let count = habit.trackDates.count
@@ -139,7 +141,6 @@ extension HabitDetailsViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Активность"
     }
-    
 }
 
 

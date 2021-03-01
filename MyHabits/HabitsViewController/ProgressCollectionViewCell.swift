@@ -22,6 +22,8 @@ class ProgressCollectionReusableView: UICollectionViewCell {
         let label = UILabel()
         let percent = Int(storage.todayProgress) * 100
         label.text = String(percent) + "%"
+        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        label.textColor = .systemGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

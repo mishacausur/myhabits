@@ -192,6 +192,8 @@ class HabitViewController: UIViewController {
     private func setView(){
         wrapperView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(navigationBar)
+        let modalWidth = view.frame.width - (view.safeAreaInsets.left + view.safeAreaInsets.right)
+        print(modalWidth)
         navigationBar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 44)
         wrapperView.addSubview(nameLabel)
         wrapperView.addSubview(nameTextField)

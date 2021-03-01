@@ -19,6 +19,7 @@ class HabitViewController: UIViewController {
         bar.tintColor = UIColor(named: "purple")
         bar.backgroundColor = .white
         bar.setItems([navigationItems], animated: false)
+        bar.translatesAutoresizingMaskIntoConstraints = false
         return bar
     }()
     
@@ -192,9 +193,7 @@ class HabitViewController: UIViewController {
     private func setView(){
         wrapperView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(navigationBar)
-        let modalWidth = view.frame.width - (view.safeAreaInsets.left + view.safeAreaInsets.right)
-        print(modalWidth)
-        navigationBar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 44)
+//        navigationBar.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 44)
         wrapperView.addSubview(nameLabel)
         wrapperView.addSubview(nameTextField)
         wrapperView.addSubview(colorLabel)
@@ -209,6 +208,11 @@ class HabitViewController: UIViewController {
         timeChanger.inputAccessoryView = toolBar
         
         let constraints = [
+            navigationBar.topAnchor.constraint(equalTo: view.topAnchor),
+            navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            navigationBar.widthAnchor.constraint(equalToConstant: 44),
+            
             wrapperView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
             wrapperView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             wrapperView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),

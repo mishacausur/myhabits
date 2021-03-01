@@ -38,12 +38,6 @@ final class HabitsViewController: UIViewController {
         navigationController?.navigationBar.backgroundColor = .white
     }
     
-    
-   
-    override func viewWillAppear(_ animated: Bool) {
-        habitsCollection.reloadData()
-    }
-   
     private func setupScreen(){
         view.addSubview(habitsCollection)
         setConsraits()

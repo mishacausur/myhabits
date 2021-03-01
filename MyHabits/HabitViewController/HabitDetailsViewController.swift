@@ -40,6 +40,10 @@ class HabitDetailsViewController: UIViewController {
         view.backgroundColor = UIColor(named: "bitGray")
     }
     
+    override func willMove(toParent parent: UIViewController?) {
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
     private func setupView(){
         view.addSubview(habitTableView)
         habitTableView.translatesAutoresizingMaskIntoConstraints = false

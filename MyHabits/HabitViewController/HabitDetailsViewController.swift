@@ -147,20 +147,32 @@ class HabitDetailsViewController: UIViewController {
 
 extension HabitDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = habit.trackDates.count
+        let count = HabitsStore.shared.dates.count - 1
         return count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = habitTableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath)
-        let date = habit.trackDates[indexPath.row]
-        let label = dateFormatter.string(from: date)
-        cell.textLabel!.text = label
-        cell.tintColor = UIColor.init(named: "purple")
-        if storage.habit(habit, isTrackedIn: date) == false {
-            cell.accessoryType = .none } else {
-                cell.accessoryType = .checkmark
-            }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMMM y"
+        let count = HabitsStore.shared.dates.count - indexPath.item - 2
+        
+        switch count {
+        case HabitsStore.shared.dates.count - 2:
+            cell.textLabel?.text = "Вчера"
+        case HabitsStore.shared.dates.count - 3:
+            cell.textLabel?.text = "Позавчера"
+        default:
+            cell.textLabel?.text = formatter.string(from: HabitsStore.shared.dates[count])
+        }
+        
+        if HabitsStore.shared.habit(habit, isTrackedIn: HabitsStore.shared.dates[count]) {
+            cell.accessoryType = .checkmark
+            cell.tintColor = UIColor(named: "purple")
+        } else {
+            cell.accessoryType = .none
+        }
+    
         return cell
     }
     

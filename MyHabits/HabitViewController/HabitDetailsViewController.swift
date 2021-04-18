@@ -11,6 +11,8 @@ class HabitDetailsViewController: UIViewController {
     
     let habitTableView = UITableView(frame: .zero, style: .grouped)
   
+    weak var delegate: Updated?
+    
     private let habit: Habit
     
     let dateFormatter: DateFormatter = {
@@ -51,13 +53,13 @@ class HabitDetailsViewController: UIViewController {
         habitTableView.dataSource = self
         habitTableView.register(UITableViewCell.self, forCellReuseIdentifier: "CellID")
         
-        let constrainrs = [
+        let constraints = [
             habitTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             habitTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             habitTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             habitTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)]
         
-        NSLayoutConstraint.activate(constrainrs)
+        NSLayoutConstraint.activate(constraints)
     }
     
     let habitVC = HabitViewController()
@@ -92,8 +94,9 @@ class HabitDetailsViewController: UIViewController {
         habit.color = habitVC.colorViewCircle.backgroundColor!
         habit.date = habitVC.timePicker.date
         storage.save()
+        self.delegate?.update()
+        title = habit.name
         dismiss(animated: true, completion: nil)
-        navigationController?.popToRootViewController(animated: true)
     }
     
     @objc func closeButton(){
@@ -118,6 +121,7 @@ class HabitDetailsViewController: UIViewController {
                 storage.habits = storage.habits.filter(){$0 != habit}
             }
         }
+        self.delegate?.update()
         dismiss(animated: true, completion: nil)
         navigationController?.popToRootViewController(animated: true)
     }

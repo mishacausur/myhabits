@@ -14,14 +14,14 @@ class InfoViewController: UIViewController {
     let infoLabel: UILabel = {
         let label = UILabel()
         label.text = "Привычка за 21 день"
-        label.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
+        label.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let infoText: UILabel = {
         let text = UILabel()
-        text.font = UIFont.systemFont(ofSize: 22, weight: .regular)
+        text.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         text.text = textForInfoText
         text.translatesAutoresizingMaskIntoConstraints = false
         text.numberOfLines = 0

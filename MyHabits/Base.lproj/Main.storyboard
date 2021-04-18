@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Habits View Controller-->
+        <!--Сегодня-->
         <scene sceneID="h9A-zr-2W6">
             <objects>
                 <viewController id="YYE-b1-L05" customClass="HabitsViewController" customModule="MyHabits" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,7 +18,7 @@
                         <viewLayoutGuide key="safeArea" id="iJ0-T4-TVp"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="HSS-Zf-BaF">
+                    <navigationItem key="navigationItem" title="Сегодня" id="HSS-Zf-BaF">
                         <barButtonItem key="rightBarButtonItem" width="50" style="plain" systemItem="add" id="3YU-VJ-yU5">
                             <color key="tintColor" red="0.63137254899999995" green="0.086274509799999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -30,84 +30,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dUP-kZ-9UO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2221.739130434783" y="-389.0625"/>
-        </scene>
-        <!--Habit View Controller-->
-        <scene sceneID="6hK-D3-I8S">
-            <objects>
-                <viewController id="Ch3-Iy-CoY" customClass="HabitViewController" customModule="MyHabits" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="XLR-eR-84Y">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="p8w-A3-LMh"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="LeL-N9-Sci">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="Z4A-D6-M65">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="y09-qW-HLF">
-                                <rect key="frame" x="20" y="13" width="92" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                            </button>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="ekC-0E-THH">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="FRK-Uu-eEX">
-                                <rect key="frame" x="302" y="13" width="92" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="saveData:" destination="Ch3-Iy-CoY" eventType="touchUpInside" id="EcT-gI-8cp"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="CancelButton" destination="y09-qW-HLF" id="8hx-7i-BwJ"/>
-                        <outlet property="SaveButton" destination="FRK-Uu-eEX" id="w3Y-tf-VHH"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dsj-o9-9Kg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3992.753623188406" y="-387.05357142857139"/>
-        </scene>
-        <!--Habit Details View Controller-->
-        <scene sceneID="p2u-rF-sWt">
-            <objects>
-                <viewController storyboardIdentifier="HabitVC" id="frN-EK-V6E" customClass="HabitDetailsViewController" customModule="MyHabits" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="aek-wc-emL">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="lmx-rm-sfY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="1qD-Rf-v1B">
-                        <barButtonItem key="rightBarButtonItem" title="Править" style="plain" id="kvD-Z7-SjJ">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="XxD-8r-jRg">
-                                <rect key="frame" x="302" y="7" width="92" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Править"/>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TkU-Zi-Nrk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4219" y="313"/>
-        </scene>
-        <!--Habit View Controller-->
-        <scene sceneID="B5q-bV-2z2">
-            <objects>
-                <viewController id="Ery-6o-Xw9" customClass="HabitViewController" customModule="MyHabits" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="X4Y-fP-Kye">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="Qho-0d-jUL"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lmc-Xq-do3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3094" y="-389"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="aJu-Lb-YiR">
@@ -183,25 +105,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fKk-72-88w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1298.5507246376812" y="313.39285714285711"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="e6M-Zt-DHh">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nZx-fh-PK6" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="kzP-hd-TCO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Sta-hz-gfj">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="frN-EK-V6E" kind="relationship" relationship="rootViewController" id="fbT-GC-9ZF"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="K1E-Zl-vfc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3404" y="313"/>
         </scene>
     </scenes>
     <color key="tintColor" red="0.63137254901960782" green="0.086274509803921567" blue="0.94901961089999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

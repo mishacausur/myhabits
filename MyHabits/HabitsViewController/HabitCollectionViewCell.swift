@@ -9,7 +9,7 @@ import UIKit
 
 class HabitCollectionViewCell: UICollectionViewCell {
     
-    var delegate: Updated?
+    weak var delegate: Updated?
     
     var habit: Habit? {
         didSet {

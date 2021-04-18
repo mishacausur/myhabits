@@ -25,7 +25,9 @@ class HabitViewController: UIViewController {
     
     let wrapperView = UIView()
     
-    var delegate: Updated?
+    let timeView = UIView()
+    
+    weak var delegate: Updated?
     
     let nameLabel: UILabel = {
         let label = UILabel()
@@ -83,16 +85,28 @@ class HabitViewController: UIViewController {
         return label
     }()
     
-    let timeChanger: UITextField = {
-        let field = UITextField()
-        field.translatesAutoresizingMaskIntoConstraints = false
-        field.text = "11:00"
-        field.textColor = UIColor(named: "purple")
-        return field
+//    let timeChanger: UITextField = {
+//        let field = UITextField()
+//        field.translatesAutoresizingMaskIntoConstraints = false
+//        field.text = "11:00"
+//        field.textColor = UIColor(named: "purple")
+//        return field
+//    }()
+    
+    let timeChanger: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "11:00"
+        label.textColor = UIColor(named: "purple")
+        return label
     }()
     
     let timePicker: UIDatePicker = {
         let picker = UIDatePicker()
+        picker.datePickerMode = .time
+        picker.preferredDatePickerStyle = .wheels
+        picker.backgroundColor = .white
+        picker.translatesAutoresizingMaskIntoConstraints = false
         return picker
     }()
     
@@ -105,62 +119,36 @@ class HabitViewController: UIViewController {
         return button
     }()
     
-    let toolBar = UIToolbar()
+    private let formatter = DateFormatter()
     
-    let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(buttonDone))
-    
-    let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    
-    var dateForHabit: Date = Date()
-    
-    @IBOutlet var CancelButton: UIButton!
-    
-    @IBOutlet var SaveButton: UIButton!
-    
-    @IBAction func saveData(_ sender: Any) {
-        
-        let nameText = nameTextField.text!
-        let dateHabit = timePicker.date
-        let colorHabit = colorViewCircle.backgroundColor!
-        let newHabit = Habit(name: nameText, date: dateHabit, color: colorHabit)
-        storage.habits.append(newHabit)
-        self.delegate?.update()
-        dismiss(animated: true, completion: nil)
-    }
-    
+//    let toolBar = UIToolbar()
+//
+//    let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(buttonDone))
+//
+//    let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+//
+//    var dateForHabit: Date = Date()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Создать"
-        setButtons()
         view.backgroundColor = .white
         view.addSubview(wrapperView)
         setView()
         let tapColorCircle = UITapGestureRecognizer(target: self, action: #selector(colorCircleTapped))
         colorViewCircle.addGestureRecognizer(tapColorCircle)
-        timeChanger.inputView = timePicker
-        timePicker.preferredDatePickerStyle = .wheels
-        timePicker.datePickerMode = .time
+//        timeChanger.inputView = timePicker
+//        timePicker.preferredDatePickerStyle = .wheels
+//        timePicker.datePickerMode = .time
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
-    
+  
     func deleteHabit(habit: Habit){
         for i in storage.habits {
             if i == habit {
                 storage.habits = storage.habits.filter(){$0 != habit}
             }
+            self.delegate?.update()
         }
-    }
-    
-    private func setButtons(){
-        CancelButton?.setTitle("Отменить", for: .normal)
-        CancelButton?.tintColor = UIColor(named: "purple")
-        CancelButton?.addTarget(self, action: #selector(closeCreateVC), for: .touchUpInside)
-        
-        SaveButton?.setTitle("Сохранить", for: .normal)
-        SaveButton?.tintColor = UIColor(named: "purple")
     }
     
     @objc  private func closeCreateVC(){
@@ -172,28 +160,32 @@ class HabitViewController: UIViewController {
     }
     
     @objc private func buttonDone(){
-        getDateFromPicker()
+//        getDateFromPicker()
         view.endEditing(true)
     }
     
-    private func getDateFromPicker(){
-        let formatter = DateFormatter()
-        formatter.dateFormat = "H:mm"
+//    private func getDateFromPicker(){
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "H:mm"
+//        timeChanger.text = formatter.string(from: timePicker.date)
+//    }
+    
+    @objc func  saveHabit() {
+        
+        let newHabit = Habit(name: nameTextField.text!, date: timePicker.date, color: colorViewCircle.backgroundColor!)
+        storage.habits.append(newHabit)
+        self.delegate?.update()
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func timeChanged() {
         timeChanger.text = formatter.string(from: timePicker.date)
     }
     
-   @objc func  saveHabit() {
-    
-    let newHabit = Habit(name: nameTextField.text!, date: timePicker.date, color: colorViewCircle.backgroundColor!)
-    storage.habits.append(newHabit)
-    self.delegate?.update()
-    dismiss(animated: true, completion: nil)
-   }
-    
     private func setView(){
         wrapperView.translatesAutoresizingMaskIntoConstraints = false
+        timeView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(navigationBar)
-//        navigationBar.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 44)
         wrapperView.addSubview(nameLabel)
         wrapperView.addSubview(nameTextField)
         wrapperView.addSubview(colorLabel)
@@ -203,9 +195,13 @@ class HabitViewController: UIViewController {
         wrapperView.addSubview(timeChanger)
         wrapperView.addSubview(deleteButton)
         colorPicker.delegate = self
-        toolBar.sizeToFit()
-        toolBar.setItems([flexSpace, doneButton], animated: true)
-        timeChanger.inputAccessoryView = toolBar
+        wrapperView.addSubview(timeView)
+        wrapperView.addSubview(timePicker)
+        formatter.dateFormat = "HH:mm"
+        timePicker.addTarget(self, action: #selector(timeChanged), for: .valueChanged)
+//        toolBar.sizeToFit()
+//        toolBar.setItems([flexSpace, doneButton], animated: true)
+//        timeChanger.inputAccessoryView = toolBar
         
         let constraints = [
             navigationBar.topAnchor.constraint(equalTo: view.topAnchor),
@@ -222,6 +218,8 @@ class HabitViewController: UIViewController {
             nameLabel.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor),
             
             nameTextField.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 7),
+            nameTextField.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
             
             colorLabel.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 15),
             
@@ -238,6 +236,9 @@ class HabitViewController: UIViewController {
             
             timeChanger.topAnchor.constraint(equalTo: timeTextLabel.topAnchor),
             timeChanger.leadingAnchor.constraint(equalTo: timeTextLabel.trailingAnchor, constant: 3),
+            
+            timePicker.topAnchor.constraint(equalTo: timeTextLabel.bottomAnchor, constant: 15),
+//            timePicker.bottomAnchor.constraint(equalTo: wrapperView.bottomAnchor),
         
             deleteButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             deleteButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)]

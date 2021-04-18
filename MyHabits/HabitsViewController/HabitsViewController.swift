@@ -33,26 +33,25 @@ final class HabitsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupScreen()
-        title = "Сегодня"
+        tabBarItem.title = "rurur"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.backgroundColor = .white
     }
     
     private func setupScreen(){
         view.addSubview(habitsCollection)
-        setConsraits()
+        setConstraints()
     }
 
-    private func setConsraits(){
+    private func setConstraints(){
         
         habitsCollection.backgroundColor = UIColor(named: "bitGray")
         
         let constraits = [
-            habitsCollection.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            habitsCollection.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            habitsCollection.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            habitsCollection.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ]
+            habitsCollection.topAnchor.constraint(equalTo: view.topAnchor),
+            habitsCollection.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            habitsCollection.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            habitsCollection.bottomAnchor.constraint(equalTo: view.bottomAnchor)]
         
         NSLayoutConstraint.activate(constraits)
     }
@@ -120,7 +119,8 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
         let habit = storage.habits[indexPath.item]
         let habitDetailsViewController = HabitDetailsViewController(habit: habit)
         navigationController?.pushViewController(habitDetailsViewController, animated: true)
-        habitsCollection.reloadData()
+        habitDetailsViewController.delegate = self
+//        habitsCollection.reloadData()
     }
 }
 

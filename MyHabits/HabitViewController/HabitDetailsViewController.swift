@@ -7,11 +7,19 @@
 
 import UIKit
 
+protocol PopToMainVC: class {
+    func popToMAinVC() -> Void
+}
+
+protocol NewTitle: class {
+    func newTitle(newTitle: String)
+}
+
 class HabitDetailsViewController: UIViewController {
     
     let habitTableView = UITableView(frame: .zero, style: .grouped)
   
-    weak var delegate: Updated?
+    var delegate: Updated?
     
     private let habit: Habit
     
@@ -46,6 +54,7 @@ class HabitDetailsViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
+    
     private func setupView(){
         view.addSubview(habitTableView)
         habitTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -64,30 +73,39 @@ class HabitDetailsViewController: UIViewController {
     
     let habitVC = HabitViewController()
     
-    @objc func openHabit() {
-        habitVC.navigationItem.title = "Править"
-        habitVC.view.backgroundColor = .white
-        habitVC.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(resaveHabit))
-        habitVC.nameTextField.text = habit.name
-        habitVC.nameTextField.textColor = habit.color
-        habitVC.nameTextField.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        habitVC.colorViewCircle.backgroundColor = habit.color
-        habitVC.navigationItem.title = "Править"
-        let i = habit.date
-        let formatter = DateFormatter()
-        formatter.dateFormat = "H:mm"
-        habitVC.timeChanger.text = formatter.string(from: i)
-        let navigationItems = UINavigationItem(title: "Править")
-        let saveButton = UIBarButtonItem(title: "Сохранить", style: .done, target: self, action: #selector(resaveHabit))
-        navigationItems.rightBarButtonItem = saveButton
-        let cancelButton = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(closeButton))
-        navigationItems.leftBarButtonItem = cancelButton
-        habitVC.navigationBar.setItems([navigationItems], animated: true)
-        let removerRecognizer = UITapGestureRecognizer(target: self, action: #selector(deleteAlert))
-        habitVC.deleteButton.alpha = 1
-        habitVC.deleteButton.addGestureRecognizer(removerRecognizer)
-        self.navigationController?.present(habitVC, animated: true, completion: nil)
+    @objc func openHabit(){
+        let habitViewController = HabitViewController()
+        habitViewController.habit = habit
+        habitViewController.closerDelegate = self
+        self.delegate?.update()
+        present(habitViewController, animated: true, completion: nil)
     }
+    
+//    @objc func openHabit() {
+//
+//        habitVC.navigationItem.title = "Править"
+//        habitVC.view.backgroundColor = .white
+////        habitVC.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(resaveHabit))
+//        habitVC.nameTextField.text = habit.name
+//        habitVC.nameTextField.textColor = habit.color
+//        habitVC.nameTextField.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+//        habitVC.colorViewCircle.backgroundColor = habit.color
+////        habitVC.navigationItem.title = "Править"
+//        let i = habit.date
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "H:mm"
+//        habitVC.timeChanger.text = formatter.string(from: i)
+//        let navigationItems = UINavigationItem(title: "Править")
+////        let saveButton = UIBarButtonItem(title: "Сохранить", style: .done, target: self, action: #selector(resaveHabit))
+////        navigationItems.rightBarButtonItem = saveButton
+////        let cancelButton = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(closeButton))
+////        navigationItems.leftBarButtonItem = cancelButton
+////        habitVC.navigationBar.setItems([navigationItems], animated: true)
+//        let removerRecognizer = UITapGestureRecognizer(target: self, action: #selector(deleteAlert))
+//        habitVC.deleteButton.alpha = 1
+//        habitVC.deleteButton.addGestureRecognizer(removerRecognizer)
+//        self.navigationController?.present(habitVC, animated: true, completion: nil)
+//    }
     
     @objc func resaveHabit(){
         habit.name = habitVC.nameTextField.text!
@@ -151,4 +169,15 @@ extension HabitDetailsViewController: UITableViewDelegate, UITableViewDataSource
     }
 }
 
+extension HabitDetailsViewController: PopToMainVC {
+    
+    func popToMAinVC() {
+        navigationController?.popToRootViewController(animated: true)
+    }
+}
 
+extension HabitDetailsViewController: NewTitle {
+    func newTitle(newTitle: String) {
+        navigationItem.title = newTitle
+    }
+}

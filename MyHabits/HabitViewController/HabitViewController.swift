@@ -23,11 +23,23 @@ class HabitViewController: UIViewController {
         return bar
     }()
     
+    public var habit: Habit? {
+           didSet {
+            nameTextField.text = habit?.name
+            timeChanger.text = formatter.string(from: habit!.date)
+            colorViewCircle.backgroundColor = habit?.color
+           }
+       }
+    
     let wrapperView = UIView()
     
     let timeView = UIView()
     
     weak var delegate: Updated?
+    
+    weak var closerDelegate: PopToMainVC?
+    
+    weak var newTitleDelegate: NewTitle?
     
     let nameLabel: UILabel = {
         let label = UILabel()
@@ -59,7 +71,7 @@ class HabitViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
         view.layer.cornerRadius = 30/2
-        view.backgroundColor = UIColor(named: "orange")
+//        view.backgroundColor = UIColor(named: "orange")
         return view
     }()
     
@@ -115,6 +127,7 @@ class HabitViewController: UIViewController {
         button.setTitle("Удалить привычку", for: .normal)
         button.setTitleColor(.red, for: .normal)
         button.alpha = 0
+        button.addTarget(self, action: #selector(deleteAlert), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -136,6 +149,20 @@ class HabitViewController: UIViewController {
         view.addSubview(wrapperView)
         setView()
         let tapColorCircle = UITapGestureRecognizer(target: self, action: #selector(colorCircleTapped))
+        if habit == nil {
+            colorViewCircle.backgroundColor = UIColor(named: "orange")
+            timeChanger.text = "11:00"
+            title = "Создать"
+        } else {
+            timeChanger.text = formatter.string(from: habit!.date)
+            let navigationItems = UINavigationItem(title: "Править")
+            let saveButton = UIBarButtonItem(title: "Сохранить", style: .done, target: self, action: #selector(saveHabit))
+            navigationItems.rightBarButtonItem = saveButton
+            let cancelButton = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(closeCreateVC))
+            navigationItems.leftBarButtonItem = cancelButton
+            navigationBar.setItems([navigationItems], animated: false)
+            
+        }
         colorViewCircle.addGestureRecognizer(tapColorCircle)
 //        timeChanger.inputView = timePicker
 //        timePicker.preferredDatePickerStyle = .wheels
@@ -148,6 +175,7 @@ class HabitViewController: UIViewController {
                 storage.habits = storage.habits.filter(){$0 != habit}
             }
             self.delegate?.update()
+            self.closerDelegate?.popToMAinVC()
         }
     }
     
@@ -171,11 +199,45 @@ class HabitViewController: UIViewController {
 //    }
     
     @objc func  saveHabit() {
+        guard let name = nameTextField.text else { return }
+        let date = timePicker.date
+        guard let color = colorViewCircle.backgroundColor else { return }
+        let newHabit = Habit(name: name, date: date, color: color)
         
-        let newHabit = Habit(name: nameTextField.text!, date: timePicker.date, color: colorViewCircle.backgroundColor!)
-        storage.habits.append(newHabit)
+        if habit != nil {
+            habit?.name = name
+            habit?.date = date
+            habit?.color = color
+            storage.save()
+            self.newTitleDelegate?.newTitle(newTitle: name)
+        } else {
+            storage.habits.append(newHabit)
+        }
         self.delegate?.update()
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func deleteAlert(){
+        let alertController = UIAlertController(title: "Удалить привычку", message: "Вы хотите удалить привычку \(habit!.name) ?", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: {_ in
+            print("Отмена")
+        })
+        let deleteAction = UIAlertAction(title: "Удалить", style: .destructive, handler: {_ in self.deleteHabit()
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(deleteAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func deleteHabit(){
+        for i in storage.habits {
+            if i == habit {
+                storage.habits = storage.habits.filter(){$0 != habit}
+            }
+        }
+        dismiss(animated: true, completion: nil)
+        self.delegate?.update()
+        self.closerDelegate?.popToMAinVC()
     }
     
     @objc private func timeChanged() {
@@ -197,6 +259,13 @@ class HabitViewController: UIViewController {
         colorPicker.delegate = self
         wrapperView.addSubview(timeView)
         wrapperView.addSubview(timePicker)
+        
+        if habit == nil {
+            timeChanger.text = formatter.string(from: timePicker.date)
+        } else {
+            timeChanger.text = formatter.string(from: habit!.date)
+        }
+        
         formatter.dateFormat = "HH:mm"
         timePicker.addTarget(self, action: #selector(timeChanged), for: .valueChanged)
 //        toolBar.sizeToFit()
@@ -243,6 +312,12 @@ class HabitViewController: UIViewController {
             deleteButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             deleteButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)]
         NSLayoutConstraint.activate(constraints)
+        
+        if habit != nil {
+            deleteButton.alpha = 1
+           
+            
+        }
     }
 }
 

@@ -96,15 +96,7 @@ class HabitViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-//    let timeChanger: UITextField = {
-//        let field = UITextField()
-//        field.translatesAutoresizingMaskIntoConstraints = false
-//        field.text = "11:00"
-//        field.textColor = UIColor(named: "purple")
-//        return field
-//    }()
-    
+
     let timeChanger: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -133,14 +125,6 @@ class HabitViewController: UIViewController {
     }()
     
     private let formatter = DateFormatter()
-    
-//    let toolBar = UIToolbar()
-//
-//    let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(buttonDone))
-//
-//    let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-//
-//    var dateForHabit: Date = Date()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -173,9 +157,6 @@ class HabitViewController: UIViewController {
             timePicker.date = date!
         }
         colorViewCircle.addGestureRecognizer(tapColorCircle)
-//        timeChanger.inputView = timePicker
-//        timePicker.preferredDatePickerStyle = .wheels
-//        timePicker.datePickerMode = .time
     }
   
     func deleteHabit(habit: Habit){
@@ -197,15 +178,9 @@ class HabitViewController: UIViewController {
     }
     
     @objc private func buttonDone(){
-//        getDateFromPicker()
         view.endEditing(true)
     }
     
-//    private func getDateFromPicker(){
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "H:mm"
-//        timeChanger.text = formatter.string(from: timePicker.date)
-//    }
     
     @objc func  saveHabit() {
         guard let name = nameTextField.text else { return }
@@ -275,9 +250,6 @@ class HabitViewController: UIViewController {
         
         formatter.dateFormat = "HH:mm"
         timePicker.addTarget(self, action: #selector(timeChanged), for: .valueChanged)
-//        toolBar.sizeToFit()
-//        toolBar.setItems([flexSpace, doneButton], animated: true)
-//        timeChanger.inputAccessoryView = toolBar
         
         let constraints = [
             navigationBar.topAnchor.constraint(equalTo: view.topAnchor),

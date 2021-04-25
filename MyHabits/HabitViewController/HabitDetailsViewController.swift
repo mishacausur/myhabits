@@ -87,31 +87,6 @@ class HabitDetailsViewController: UIViewController {
         present(habitViewController, animated: true, completion: nil)
     }
     
-//    @objc func openHabit() {
-//
-//        habitVC.navigationItem.title = "Править"
-//        habitVC.view.backgroundColor = .white
-////        habitVC.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(resaveHabit))
-//        habitVC.nameTextField.text = habit.name
-//        habitVC.nameTextField.textColor = habit.color
-//        habitVC.nameTextField.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-//        habitVC.colorViewCircle.backgroundColor = habit.color
-////        habitVC.navigationItem.title = "Править"
-//        let i = habit.date
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "H:mm"
-//        habitVC.timeChanger.text = formatter.string(from: i)
-//        let navigationItems = UINavigationItem(title: "Править")
-////        let saveButton = UIBarButtonItem(title: "Сохранить", style: .done, target: self, action: #selector(resaveHabit))
-////        navigationItems.rightBarButtonItem = saveButton
-////        let cancelButton = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(closeButton))
-////        navigationItems.leftBarButtonItem = cancelButton
-////        habitVC.navigationBar.setItems([navigationItems], animated: true)
-//        let removerRecognizer = UITapGestureRecognizer(target: self, action: #selector(deleteAlert))
-//        habitVC.deleteButton.alpha = 1
-//        habitVC.deleteButton.addGestureRecognizer(removerRecognizer)
-//        self.navigationController?.present(habitVC, animated: true, completion: nil)
-//    }
     
     @objc func resaveHabit(){
         habit.name = habitVC.nameTextField.text!

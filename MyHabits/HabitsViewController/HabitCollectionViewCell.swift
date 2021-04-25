@@ -58,7 +58,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
         button.setImage(UIImage.init(systemName: "checkmark"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .white
-        //        button.setImage(UIImage(named: "checkmark"), for: .normal)
         return button
     }()
     

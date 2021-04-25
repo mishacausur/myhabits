@@ -19,7 +19,7 @@ class HabitDetailsViewController: UIViewController {
     
     let habitTableView = UITableView(frame: .zero, style: .grouped)
   
-    var delegate: Updated?
+    weak var delegate: Updated?
     
     private let habit: Habit
     
@@ -153,18 +153,20 @@ extension HabitDetailsViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = habitTableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath)
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMMM y"
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "dd MMMM y"
         let count = HabitsStore.shared.dates.count - indexPath.item - 2
+//
+//        switch count {
+//        case HabitsStore.shared.dates.count - 2:
+//            cell.textLabel?.text = "Вчера"
+//        case HabitsStore.shared.dates.count - 3:
+//            cell.textLabel?.text = "Позавчера"
+//        default:
+//            cell.textLabel?.text = formatter.string(from: HabitsStore.shared.dates[count])
+//        }
         
-        switch count {
-        case HabitsStore.shared.dates.count - 2:
-            cell.textLabel?.text = "Вчера"
-        case HabitsStore.shared.dates.count - 3:
-            cell.textLabel?.text = "Позавчера"
-        default:
-            cell.textLabel?.text = formatter.string(from: HabitsStore.shared.dates[count])
-        }
+        cell.textLabel?.text = HabitsStore.shared.trackDateString(forIndex: indexPath.row)
         
         if HabitsStore.shared.habit(habit, isTrackedIn: HabitsStore.shared.dates[count]) {
             cell.accessoryType = .checkmark

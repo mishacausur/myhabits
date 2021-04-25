@@ -163,6 +163,15 @@ class HabitViewController: UIViewController {
             navigationBar.setItems([navigationItems], animated: false)
             
         }
+        if habit == nil {
+            timeChanger.text = formatter.string(from: timePicker.date)
+        } else {
+            timeChanger.text = formatter.string(from: habit!.date)
+        }
+        if habit != nil {
+            let date = formatter.date(from: timeChanger.text!)
+            timePicker.date = date!
+        }
         colorViewCircle.addGestureRecognizer(tapColorCircle)
 //        timeChanger.inputView = timePicker
 //        timePicker.preferredDatePickerStyle = .wheels
@@ -260,11 +269,9 @@ class HabitViewController: UIViewController {
         wrapperView.addSubview(timeView)
         wrapperView.addSubview(timePicker)
         
-        if habit == nil {
-            timeChanger.text = formatter.string(from: timePicker.date)
-        } else {
-            timeChanger.text = formatter.string(from: habit!.date)
-        }
+       
+        
+       
         
         formatter.dateFormat = "HH:mm"
         timePicker.addTarget(self, action: #selector(timeChanged), for: .valueChanged)

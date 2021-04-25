@@ -121,10 +121,11 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 0 { return } else {
         let habit = storage.habits[indexPath.item]
         let habitDetailsViewController = HabitDetailsViewController(habit: habit)
         navigationController?.pushViewController(habitDetailsViewController, animated: true)
-        habitDetailsViewController.delegate = self
+            habitDetailsViewController.delegate = self }
 //        habitsCollection.reloadData()
     }
 }

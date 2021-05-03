@@ -42,7 +42,6 @@ class HabitDetailsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        print("SUCHKA")
     }
     
     override func viewDidLoad() {
